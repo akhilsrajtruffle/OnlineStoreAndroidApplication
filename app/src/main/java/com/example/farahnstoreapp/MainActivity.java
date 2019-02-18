@@ -17,8 +17,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.farahnstoreapp.Adapter.CatTitlesListAdapter;
 import com.example.farahnstoreapp.Model.Category;
+import com.example.farahnstoreapp.Model.GallerySlide;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
 
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     RecyclerView rcCateg;
     public static List<Category> MainCategoryList;
 
+    SliderLayout sliderLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,25 +54,14 @@ public class MainActivity extends AppCompatActivity
         }
         setTitle("فروشگاه فرهنگ");
         rcCateg = findViewById(R.id.rec_main_cat);
+        sliderLayout = findViewById(R.id.slider);
 
+        getGallerySlides();
         getCateg();
-/*
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
-        Call<List<Category>> call = apiInterface.getCategList();
-        call.enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                if(response.isSuccessful()){
-                    setupCatRec(response.body());
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
 
-            }
-        });
-*/
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -75,6 +70,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
     }
 
     @Override
@@ -115,19 +111,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_category) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_profile) {
 
         }
+
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -141,7 +132,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_SHORT).show();
                     MainCategoryList=response.body();
                     setupCatRec(MainCategoryList);
                 }
@@ -149,7 +139,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"NO"+t.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"عدم ارتباط با سرور"+t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -159,6 +149,43 @@ public class MainActivity extends AppCompatActivity
         CatTitlesListAdapter catTitlesListAdapter = new CatTitlesListAdapter(this,categoryList);
         rcCateg.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         rcCateg.setAdapter(catTitlesListAdapter);
+
+    }
+
+    public void getGallerySlides(){
+
+        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+        Call<List<GallerySlide>> call = apiInterface.getGallerySlides();
+        call.enqueue(new Callback<List<GallerySlide>>() {
+            @Override
+            public void onResponse(Call<List<GallerySlide>> call, Response<List<GallerySlide>> response) {
+                if(response.isSuccessful()){
+                   // Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_SHORT).show();
+                    setupGallerySlides(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GallerySlide>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"عدم ارتباط با سرور"+t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    public void setupGallerySlides(List<GallerySlide> gallerySlides){
+
+        for (int i = 0; i <gallerySlides.size() ; i++) {
+
+            TextSliderView textSliderView = new TextSliderView(this);
+
+            textSliderView.description(gallerySlides.get(i).getDescription())
+                    .image(gallerySlides.get(i).getLink())
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop);
+
+            sliderLayout.addSlider(textSliderView);
+        }
 
     }
 

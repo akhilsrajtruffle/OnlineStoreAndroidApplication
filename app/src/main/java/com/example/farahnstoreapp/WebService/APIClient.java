@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
 
-    public static final String BASE_URL="http://www.m.ir/app/ore/";
+    public static final String BASE_URL="http://www.m.ir/are/";
     public static Retrofit retrofit = null;
 
     public static Retrofit getClient(){
