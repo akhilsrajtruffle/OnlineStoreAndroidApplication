@@ -20,4 +20,10 @@ public interface APIInterface {
     @GET("new_get_categ_products.php")
     Call<List<Product>> getBookProducts();
 
+
+    @GET("new_get_sub_cat_list.php")
+    Call<List<Category>> getSubCategory();
+
+
+
 }

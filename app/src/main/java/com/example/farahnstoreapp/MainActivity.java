@@ -1,5 +1,6 @@
 package com.example.farahnstoreapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity
 
     RecyclerView rcCateg,recProduct;
     public static List<Category> MainCategoryList;
-
     SliderLayout sliderLayout;
 
     @Override
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_category) {
-            // Handle the camera action
+            startActivity(new Intent(MainActivity.this,List_of_Category.class));
         } else if (id == R.id.nav_profile) {
 
         }
@@ -173,7 +173,6 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-
     public void setupGallerySlides(List<GallerySlide> gallerySlides){
 
         for (int i = 0; i <gallerySlides.size() ; i++) {
