@@ -20,4 +20,20 @@
         android:orientation="horizontal"
         android:id="@+id/rec_main_cat"/>
 
+    <TextView
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/byekan"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16dp"
+        android:text="کتاب ها:"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/rec_main_book_product"/>
 </LinearLayout>

@@ -1,8 +1,6 @@
 package com.example.farahnstoreapp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -21,8 +18,10 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.farahnstoreapp.Adapter.CatTitlesListAdapter;
+import com.example.farahnstoreapp.Adapter.ProductListAdapter;
 import com.example.farahnstoreapp.Model.Category;
 import com.example.farahnstoreapp.Model.GallerySlide;
+import com.example.farahnstoreapp.Model.Product;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
 
@@ -37,7 +36,7 @@ import static android.os.Build.VERSION.SDK_INT;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    RecyclerView rcCateg;
+    RecyclerView rcCateg,recProduct;
     public static List<Category> MainCategoryList;
 
     SliderLayout sliderLayout;
@@ -54,12 +53,13 @@ public class MainActivity extends AppCompatActivity
         }
         setTitle("فروشگاه فرهنگ");
         rcCateg = findViewById(R.id.rec_main_cat);
+        recProduct = findViewById(R.id.rec_main_book_product);
         sliderLayout = findViewById(R.id.slider);
 
         getGallerySlides();
         getCateg();
 
-
+        GetProduct();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -188,5 +188,34 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
+    public void GetProduct(){
+
+        APIInterface apiInterface =  APIClient.getClient().create(APIInterface.class);
+        Call<List<Product>> call = apiInterface.getBookProducts();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if(response.isSuccessful()){
+                    setupBookProductRec(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"عدم اتصال به سرور",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+    public void setupBookProductRec(List<Product> ProductList){
+
+        ProductListAdapter productListAdapter = new ProductListAdapter(this,ProductList);
+        recProduct.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recProduct.setAdapter(productListAdapter);
+
+    }
+
 
 }

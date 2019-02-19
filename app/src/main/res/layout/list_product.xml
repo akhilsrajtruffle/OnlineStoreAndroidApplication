@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/crd_list_product"
+    android:layout_margin="3dp"
+    app:cardElevation="2dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_list_product"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            android:layout_margin="8dp"
+            android:src="@mipmap/ico_category"/>
+
+        <TextView
+            android:fontFamily="@font/byekan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="12sp"
+            android:text="نام محصول"
+            android:textColor="#442777"
+            android:id="@+id/txt_name_list_product"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#00BCD4"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="قیمت:"
+            android:textSize="12sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+
+            android:fontFamily="@font/byekan"
+            android:textColor="#009688"
+            android:id="@+id/txt_price_list_product"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

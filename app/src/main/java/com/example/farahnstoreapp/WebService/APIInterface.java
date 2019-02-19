@@ -2,6 +2,7 @@ package com.example.farahnstoreapp.WebService;
 
 import com.example.farahnstoreapp.Model.Category;
 import com.example.farahnstoreapp.Model.GallerySlide;
+import com.example.farahnstoreapp.Model.Product;
 
 import java.util.List;
 
@@ -15,5 +16,8 @@ public interface APIInterface {
 
     @GET("new_get_gallery_slide_list.php")
     Call<List<GallerySlide>> getGallerySlides();
+
+    @GET("new_get_categ_products.php")
+    Call<List<Product>> getBookProducts();
 
 }
