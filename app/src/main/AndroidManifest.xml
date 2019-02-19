@@ -13,9 +13,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".List_of_products"
+            android:label="@string/title_activity_list_of_products"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".List_of_Category"
             android:label="@string/title_activity_list_of__category"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

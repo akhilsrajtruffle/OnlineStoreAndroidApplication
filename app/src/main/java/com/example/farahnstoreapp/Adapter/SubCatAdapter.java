@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.farahnstoreapp.List_of_products;
 import com.example.farahnstoreapp.Model.Category;
 import com.example.farahnstoreapp.R;
 import com.squareup.picasso.Picasso;
@@ -43,11 +44,11 @@ public class SubCatAdapter extends RecyclerView.Adapter<SubCatAdapter.subCatView
         holder.crd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
+
                 Intent i = new Intent(context, List_of_products.class);
                 i.putExtra("ID",categoryList.get(position).getId()+"");
                 context.startActivity(i);
-                */
+
             }
         });
     }

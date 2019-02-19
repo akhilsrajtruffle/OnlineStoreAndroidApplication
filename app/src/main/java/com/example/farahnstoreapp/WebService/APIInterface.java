@@ -8,6 +8,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface APIInterface {
 
@@ -24,6 +25,9 @@ public interface APIInterface {
     @GET("new_get_sub_cat_list.php")
     Call<List<Category>> getSubCategory();
 
+
+    @GET("getget.php")
+    Call<List<Product>> getCatProducts(@Query("id") String id);
 
 
 }
