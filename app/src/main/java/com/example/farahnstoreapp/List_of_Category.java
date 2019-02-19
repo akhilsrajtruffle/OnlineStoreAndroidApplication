@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.farahnstoreapp.Adapter.FragmentAdapter;
 import com.example.farahnstoreapp.FRAGMENTS.FRG_List_Cat;
@@ -24,6 +25,8 @@ import static com.example.farahnstoreapp.MainActivity.MainCategoryList;
 
 public class List_of_Category extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Bundle b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class List_of_Category extends AppCompatActivity
         }
         setTitle("دسته بندی محصولات");
 
+        b = getIntent().getExtras();
         init();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -82,7 +86,7 @@ public class List_of_Category extends AppCompatActivity
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         FRG_List_Cat[] listFragments = new FRG_List_Cat[catCount];
 
-        for( int i=catCount-1  ; i>=0  ; i--  ){
+        for( int i=0  ; i<catCount  ; i++  ){
             Bundle bundle = new Bundle();
             //int m= i+1;
             bundle.putString("FRG",MainCategoryList.get(i).getId()+"");
@@ -100,7 +104,7 @@ public class List_of_Category extends AppCompatActivity
         viewPager.setAdapter(fragmentAdapter);
         viewPager.computeScroll();
 
-        viewPager.setCurrentItem(0);
+        viewPager.setCurrentItem(Integer.parseInt(b.getString("ITEM")));
 
     }
 

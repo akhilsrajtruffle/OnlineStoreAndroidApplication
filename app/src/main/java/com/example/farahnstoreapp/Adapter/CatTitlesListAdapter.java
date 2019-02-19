@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.example.farahnstoreapp.List_of_Category;
+import com.example.farahnstoreapp.MainActivity;
 import com.example.farahnstoreapp.Model.Category;
 import com.example.farahnstoreapp.R;
 
@@ -37,13 +39,15 @@ public class CatTitlesListAdapter extends RecyclerView.Adapter<CatTitlesListAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CatTitleListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CatTitleListViewHolder holder, final int position) {
 
         holder.txt.setText(categoryList.get(position).getName());
         holder.rel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //context.startActivity(new Intent(context, CategoryList.class));
+                Intent i = new Intent(context, List_of_Category.class);
+                i.putExtra("ITEM",position+"");
+                context.startActivity(i);
             }
         });
 

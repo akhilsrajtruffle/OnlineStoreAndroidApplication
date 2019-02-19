@@ -112,7 +112,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_category) {
-            startActivity(new Intent(MainActivity.this,List_of_Category.class));
+            Intent i = new Intent(MainActivity.this, List_of_Category.class);
+            i.putExtra("ITEM","0");
+            startActivity(i);
         } else if (id == R.id.nav_profile) {
 
         }
