@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.farahnstoreapp.Adapter.ProductListAdapter;
+import com.example.farahnstoreapp.Adapter.ProductListInPlAdapter;
 import com.example.farahnstoreapp.Model.Product;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
@@ -136,8 +137,8 @@ public class List_of_products extends AppCompatActivity
 
     }
     public void setupRecycler(List<Product> productList){
-        ProductListAdapter productListAdapter = new ProductListAdapter(this,productList);
-        rec_list_product.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        ProductListInPlAdapter productListAdapter = new ProductListInPlAdapter(this,productList);
+        rec_list_product.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rec_list_product.setAdapter(productListAdapter);
     }
 }
