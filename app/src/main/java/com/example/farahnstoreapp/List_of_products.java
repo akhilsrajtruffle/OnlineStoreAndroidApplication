@@ -2,6 +2,7 @@ package com.example.farahnstoreapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,9 +23,9 @@ import com.example.farahnstoreapp.Adapter.ProductListInPlAdapter;
 import com.example.farahnstoreapp.Model.Product;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +35,9 @@ import static android.os.Build.VERSION.SDK_INT;
 public class List_of_products extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Bundle b;
     RecyclerView rec_list_product;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +51,27 @@ public class List_of_products extends AppCompatActivity
         }
         setTitle("");
 
-        Bundle b = getIntent().getExtras();
+        b = getIntent().getExtras();
         rec_list_product = findViewById(R.id.rec_list_product_product);
+        shimmerFrameLayout = findViewById(R.id.shimmer);
         getProductList(b.getString("ID"));
 
+
+/*
+        new CountDownTimer(5000,1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
+*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -124,7 +144,7 @@ public class List_of_products extends AppCompatActivity
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful()){
-
+                    shimmerFrameLayout.setVisibility(View.GONE);
                     setupRecycler(response.body());
                 }
             }

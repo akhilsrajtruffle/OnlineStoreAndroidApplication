@@ -2,6 +2,7 @@ package com.example.farahnstoreapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,8 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -25,9 +24,8 @@ import com.example.farahnstoreapp.Model.GallerySlide;
 import com.example.farahnstoreapp.Model.Product;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
-
+import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerView rcCateg,recProduct;
     public static List<Category> MainCategoryList;
     SliderLayout sliderLayout;
+    ShimmerFrameLayout SHSlider,SHCat,SHPr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +53,14 @@ public class MainActivity extends AppCompatActivity
         setTitle("فروشگاه فرهنگ");
         rcCateg = findViewById(R.id.rec_main_cat);
         recProduct = findViewById(R.id.rec_main_book_product);
+        SHCat = findViewById(R.id.shimmer_cat);
+        //SHSlider = findViewById(R.id.shimmer_slider);
+        //shimmerLayout= findViewById(R.id.shimmer);
+        SHPr= findViewById(R.id.shimmer_pr);
         sliderLayout = findViewById(R.id.slider);
 
         getGallerySlides();
         getCateg();
-
         GetProduct();
 
 
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 if(response.isSuccessful()){
+                    SHCat.setVisibility(View.GONE);
                     MainCategoryList=response.body();
                     setupCatRec(MainCategoryList);
                 }
@@ -163,6 +166,7 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(Call<List<GallerySlide>> call, Response<List<GallerySlide>> response) {
                 if(response.isSuccessful()){
                    // Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_SHORT).show();
+//                    SHSlider.setVisibility(View.GONE);
                     setupGallerySlides(response.body());
                 }
             }
@@ -198,6 +202,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if(response.isSuccessful()){
+                    SHPr.setVisibility(View.GONE);
                     setupBookProductRec(response.body());
                 }
             }

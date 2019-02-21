@@ -10,6 +10,26 @@
     tools:context=".List_of_products"
     tools:showIn="@layout/app_bar_list_of_products">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/shimmer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/list_product_in_pl_placeholder"/>
+            <include layout="@layout/list_product_in_pl_placeholder"/>
+            <include layout="@layout/list_product_in_pl_placeholder"/>
+            <include layout="@layout/list_product_in_pl_placeholder"/>
+            <include layout="@layout/list_product_in_pl_placeholder"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
