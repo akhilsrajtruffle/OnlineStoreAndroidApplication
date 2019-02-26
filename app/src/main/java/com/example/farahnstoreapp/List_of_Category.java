@@ -98,9 +98,7 @@ public class List_of_Category extends AppCompatActivity
 
         }
 
-
-
-
+        
 
         viewPager.setAdapter(fragmentAdapter);
         viewPager.computeScroll();

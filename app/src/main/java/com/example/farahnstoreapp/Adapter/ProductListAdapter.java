@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.farahnstoreapp.Detail_of_product;
 import com.example.farahnstoreapp.Model.Product;
 import com.example.farahnstoreapp.R;
 import com.squareup.picasso.Picasso;
@@ -46,11 +47,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.crd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                Intent i = new Intent(context, DetailOfProduct.class);
+
+                Intent i = new Intent(context, Detail_of_product.class);
                 i.putExtra("ID",productList.get(position).getId());
+                i.putExtra("NAME",productList.get(position).getName());
+                i.putExtra("PRICE",productList.get(position).getPrice());
+                i.putExtra("ICON",productList.get(position).getIcon());
+
                 context.startActivity(i);
-                */
+
             }
         });
     }

@@ -28,6 +28,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:textSize="12sp"
+            android:maxLength="15"
             android:text="نام محصول"
             android:textColor="#442777"
             android:id="@+id/txt_name_list_product"/>

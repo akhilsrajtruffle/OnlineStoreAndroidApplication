@@ -1,6 +1,7 @@
 package com.example.farahnstoreapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.farahnstoreapp.Detail_of_product;
 import com.example.farahnstoreapp.Model.Product;
 import com.example.farahnstoreapp.R;
 import com.squareup.picasso.Picasso;
@@ -45,11 +47,15 @@ public class ProductListInPlAdapter extends RecyclerView.Adapter<ProductListInPl
         holder.crd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                Intent i = new Intent(context, DetailOfProduct.class);
+
+                Intent i = new Intent(context, Detail_of_product.class);
                 i.putExtra("ID",productList.get(position).getId());
+                i.putExtra("NAME",productList.get(position).getName());
+                i.putExtra("PRICE",productList.get(position).getPrice());
+                i.putExtra("ICON",productList.get(position).getIcon());
+
                 context.startActivity(i);
-                */
+
             }
         });
     }

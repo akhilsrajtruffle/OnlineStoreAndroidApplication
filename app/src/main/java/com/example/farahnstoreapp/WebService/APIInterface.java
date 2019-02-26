@@ -16,7 +16,7 @@ public interface APIInterface {
     Call<List<Category>> getCategList();
 
     @GET("new_get_gallery_slide_list.php")
-    Call<List<GallerySlide>> getGallerySlides();
+    Call<List<GallerySlide>> getGallerySlides(@Query("id") String id);
 
     @GET("new_get_categ_products.php")
     Call<List<Product>> getBookProducts();
