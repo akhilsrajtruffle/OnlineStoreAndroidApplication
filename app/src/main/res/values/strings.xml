@@ -9,4 +9,5 @@
     <string name="title_activity_list_of__category">List_of_Category</string>
     <string name="title_activity_list_of_products">List_of_products</string>
     <string name="title_activity_detail_of_product">Detail_of_product</string>
+    <string name="title_activity_user">UserActivity</string>
 </resources>

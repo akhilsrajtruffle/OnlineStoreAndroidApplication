@@ -22,6 +22,7 @@ import com.example.farahnstoreapp.Adapter.ProductListAdapter;
 import com.example.farahnstoreapp.Model.Category;
 import com.example.farahnstoreapp.Model.GallerySlide;
 import com.example.farahnstoreapp.Model.Product;
+import com.example.farahnstoreapp.Model.UserData;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         getGallerySlides();
         getCateg();
         GetProduct();
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,7 +120,8 @@ public class MainActivity extends AppCompatActivity
             i.putExtra("ITEM","0");
             startActivity(i);
         } else if (id == R.id.nav_profile) {
-
+            Intent i = new Intent(MainActivity.this, UserActivity.class);
+            startActivity(i);
         }
 
 

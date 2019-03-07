@@ -64,7 +64,6 @@ public class FRG_List_Cat extends Fragment {
                     if(getArguments().get("FRG").equals(categoryList.get(i).getParent())){
                         items.add(categoryList.get(i));
                     }
-
                 }
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
