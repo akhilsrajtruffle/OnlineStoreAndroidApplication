@@ -127,7 +127,8 @@ public class List_of_products extends AppCompatActivity
             i.putExtra("ITEM","0");
             startActivity(i);
         } else if (id == R.id.nav_profile) {
-
+            Intent i = new Intent(List_of_products.this, UserActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -40,4 +40,7 @@ public interface APIInterface {
     @GET("user_register.php")
     Call<Otp> userRegister(@Query("id") String id, @Query("name") String name, @Query("pass") String pass);
 
+    @GET("user_login.php")
+    Call<Otp> userLogin( @Query("mobile") String mobile, @Query("pass") String pass);
+
 }

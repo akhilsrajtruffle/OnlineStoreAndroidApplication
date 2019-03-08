@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.farahnstoreapp.Model.GallerySlide;
+import com.example.farahnstoreapp.Model.UserData;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
 import com.squareup.picasso.Picasso;
@@ -42,6 +44,7 @@ public class Detail_of_product extends AppCompatActivity
     TextView title,price;
     SliderLayout sliderLayout;
     FrameLayout frmImg,frm_Slider;
+    LinearLayout addToBasket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class Detail_of_product extends AppCompatActivity
         sliderLayout = findViewById(R.id.slider_in_detail);
         frmImg = findViewById(R.id.frm_img);
         frm_Slider = findViewById(R.id.frm_slider);
+        addToBasket = findViewById(R.id.add_to_basket);
 
         frm_Slider.setVisibility(View.GONE);
 
@@ -75,6 +79,22 @@ public class Detail_of_product extends AppCompatActivity
         title.setText(b.get("NAME").toString());
         price.setText(b.get("PRICE").toString()+" تومان ");
         Picasso.with(getApplicationContext()).load(b.get("ICON").toString()).into(img);
+
+        addToBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                UserData userData = new UserData(getApplicationContext());
+                if(!userData.GetId().equals("-")){
+                    Toast.makeText(getApplicationContext(),"Userid="+userData.GetId()+"\nProductid="+b.get("ID"),Toast.LENGTH_SHORT).show();
+                }else if(userData.GetId().equals("-")){
+                    startActivity(new Intent(Detail_of_product.this,UserActivity.class));
+                    Toast.makeText(getApplicationContext(),"لطفا وارد شوید یا ثبت نام کنید",Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -130,7 +150,8 @@ public class Detail_of_product extends AppCompatActivity
             i.putExtra("ITEM","0");
             startActivity(i);
         } else if (id == R.id.nav_profile) {
-
+            Intent i = new Intent(Detail_of_product.this, UserActivity.class);
+            startActivity(i);
         }
 
 

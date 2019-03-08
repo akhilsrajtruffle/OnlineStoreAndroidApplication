@@ -169,6 +169,7 @@
                 app:cardElevation="0dp">
 
                 <LinearLayout
+                    android:id="@+id/add_to_basket"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

@@ -63,7 +63,8 @@ public class List_of_Category extends AppCompatActivity
         if (id == R.id.nav_category) {
 
         } else if (id == R.id.nav_profile) {
-
+            Intent i = new Intent(List_of_Category.this, UserActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

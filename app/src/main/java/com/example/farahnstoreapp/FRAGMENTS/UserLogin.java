@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.farahnstoreapp.Model.Otp;
 import com.example.farahnstoreapp.Model.Product;
+import com.example.farahnstoreapp.Model.UserData;
 import com.example.farahnstoreapp.R;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
@@ -27,7 +28,7 @@ import retrofit2.Response;
 
 public class UserLogin extends Fragment {
 
-    Button Register;
+    Button Register,login;
     EditText Tel,Pass;
 
     @Nullable
@@ -36,6 +37,7 @@ public class UserLogin extends Fragment {
         View view = inflater.inflate(R.layout.frg_user_login,container,false);
 
         Register = view.findViewById(R.id.btn_frguser_login_register);
+        login = view.findViewById(R.id.btn_frguser_login_login);
         Tel = view.findViewById(R.id.edt_frguser_login_tel);
         Pass = view.findViewById(R.id.edt_frguser_login_pass);
 
@@ -47,6 +49,19 @@ public class UserLogin extends Fragment {
                 }else {
                     //Toast.makeText(getContext(),"ممنون",Toast.LENGTH_SHORT).show();
                     getOtpStatus(Tel.getText().toString());
+                }
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((Tel.getText().length()<=10 || Tel.getText().length()>11)&&(Pass.getText().length()<=0) ){
+                    Toast.makeText(getContext(),"شماره تلفن همراه یا رمز عبور را صحیح وارد کنید.",Toast.LENGTH_SHORT).show();
+                }else if((Tel.getText().length()==11 )&&(Pass.getText().length()>0) ) {
+                    //Toast.makeText(getContext(),"ممنون",Toast.LENGTH_SHORT).show();
+                    //getOtpStatus(Tel.getText().toString());
+                    Login(Tel.getText().toString(),Pass.getText().toString());
                 }
             }
         });
@@ -78,6 +93,41 @@ public class UserLogin extends Fragment {
                             transaction.commit();
 
                         }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Otp> call, Throwable t) {
+                Toast.makeText(getContext(),"عدم اتصال به سرور",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void Login(final String mobile , final String pass){
+        APIInterface apiInterface =  APIClient.getClient().create(APIInterface.class);
+        Call<Otp> call = apiInterface.userLogin(mobile , pass);
+        call.enqueue(new Callback<Otp>() {
+            @Override
+            public void onResponse(Call<Otp> call, Response<Otp> response) {
+                if(response.isSuccessful()){
+                    Otp otp =response.body();
+                    if(otp.getStatus().equals("wrong")){
+                        Toast.makeText(getContext(),"نام کاربری یا رمز عبور اشتباه است",Toast.LENGTH_LONG).show();
+                    }else if(otp.getStatus().equals("login")){
+
+                        Toast.makeText(getContext(),otp.getName()+"خوش آمدید",Toast.LENGTH_LONG).show();
+                        UserData userData = new UserData(getContext());
+                        userData.SetID(otp.getId());
+                        userData.SetTel(mobile);
+                        userData.SetPass(pass);
+                        userData.SetName(otp.getName());
+
+                        Fragment InfoFragment = new UserInfo();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.container, InfoFragment ); // give your fragment container id in first parameter
+                        transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                        transaction.commit();
+                    }
                 }
             }
 
