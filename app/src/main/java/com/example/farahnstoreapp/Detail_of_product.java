@@ -23,6 +23,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.farahnstoreapp.Model.GallerySlide;
+import com.example.farahnstoreapp.Model.Otp;
 import com.example.farahnstoreapp.Model.UserData;
 import com.example.farahnstoreapp.WebService.APIClient;
 import com.example.farahnstoreapp.WebService.APIInterface;
@@ -40,11 +41,12 @@ public class Detail_of_product extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Bundle b;
-    ImageView img;
-    TextView title,price;
+    ImageView img,minus,add;
+    TextView title,price,qty;
     SliderLayout sliderLayout;
     FrameLayout frmImg,frm_Slider;
     LinearLayout addToBasket;
+    int qtyInt=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,10 @@ public class Detail_of_product extends AppCompatActivity
 
         title = findViewById(R.id.txt_name_in_detail);
         price = findViewById(R.id.txt_price_in_detail);
+        qty = findViewById(R.id.txt_detail_qty);
         img = findViewById(R.id.img_in_detail);
+        add = findViewById(R.id.img_detail_add);
+        minus = findViewById(R.id.img_detail_min);
         sliderLayout = findViewById(R.id.slider_in_detail);
         frmImg = findViewById(R.id.frm_img);
         frm_Slider = findViewById(R.id.frm_slider);
@@ -80,16 +85,67 @@ public class Detail_of_product extends AppCompatActivity
         price.setText(b.get("PRICE").toString()+" تومان ");
         Picasso.with(getApplicationContext()).load(b.get("ICON").toString()).into(img);
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qtyInt++;
+                qty.setText(qtyInt+"");
+            }
+        });
+
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qtyInt--;
+                if(qtyInt>=0){
+                    qty.setText(qtyInt+"");
+                }else {
+                    qtyInt=0;
+                    qty.setText(qtyInt+"");
+                }
+
+
+            }
+        });
+
+
         addToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 UserData userData = new UserData(getApplicationContext());
-                if(!userData.GetId().equals("-")){
-                    Toast.makeText(getApplicationContext(),"Userid="+userData.GetId()+"\nProductid="+b.get("ID"),Toast.LENGTH_SHORT).show();
-                }else if(userData.GetId().equals("-")){
+                if(!userData.GetId().equals("-") && qtyInt>0){
+                    //Toast.makeText(getApplicationContext(),"Userid="+userData.GetId()+"\nProductid="+b.get("ID")+"\nQTY="+qtyInt,Toast.LENGTH_SHORT).show();
+
+                    APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+                    Call<Otp> call = apiInterface.addToBasket(userData.GetId(),b.get("ID")+"",qtyInt+"");
+                    call.enqueue(new Callback<Otp>() {
+                        @Override
+                        public void onResponse(Call<Otp> call, Response<Otp> response) {
+                            if(response.isSuccessful()){
+                                Otp otp = response.body();
+                                if(otp.getStatus().equals("duplicate")){
+                                    Toast.makeText(getApplicationContext(),"این سفارش قبلا به سبد خرید افزوده شده!",Toast.LENGTH_SHORT).show();
+                                }else if(otp.getStatus().equals("added")){
+                                    Toast.makeText(getApplicationContext(),"به سبد خرید اضافه شد",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Otp> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(),"عدم ارتباط با سرور",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                }
+                if(userData.GetId().equals("-")){
                     startActivity(new Intent(Detail_of_product.this,UserActivity.class));
                     Toast.makeText(getApplicationContext(),"لطفا وارد شوید یا ثبت نام کنید",Toast.LENGTH_SHORT).show();
+                }
+                if(qtyInt<=0){
+                    Toast.makeText(getApplicationContext(),"لطفا تعداد را انتخاب کنید",Toast.LENGTH_SHORT).show();
                 }
 
 

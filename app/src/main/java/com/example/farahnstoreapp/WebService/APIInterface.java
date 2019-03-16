@@ -43,4 +43,8 @@ public interface APIInterface {
     @GET("user_login.php")
     Call<Otp> userLogin( @Query("mobile") String mobile, @Query("pass") String pass);
 
+
+    @GET("new_add_basket.php")
+    Call<Otp> addToBasket( @Query("userid") String uid, @Query("productid") String prid, @Query("qty") String qty);
+
 }
