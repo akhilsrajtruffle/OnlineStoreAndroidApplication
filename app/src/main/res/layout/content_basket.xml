@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".BasketActivity"
+    tools:showIn="@layout/app_bar_basket">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/txt_basket_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/byekan"
+            android:textAlignment="center"
+            android:textSize="35dp"
+            android:textColor="#fff"
+            android:text="قابل پرداخت"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rec_list_basket">
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:id="@+id/lin_basket_pay"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/txt_basket_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/byekan"
+            android:textAlignment="center"
+            android:textSize="35dp"
+            android:textColor="#fff"
+            android:text="پرداخت آنلاین"/>
+
+    </LinearLayout>
+
+</LinearLayout>

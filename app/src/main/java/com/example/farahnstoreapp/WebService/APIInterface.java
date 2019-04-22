@@ -47,4 +47,8 @@ public interface APIInterface {
     @GET("new_add_basket.php")
     Call<Otp> addToBasket( @Query("userid") String uid, @Query("productid") String prid, @Query("qty") String qty);
 
+
+    @GET("new_get_list_of_basket_products.php")
+    Call<List<Product>>  GetBasketList( @Query("id") String uid);
+
 }

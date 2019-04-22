@@ -125,9 +125,10 @@ public class Detail_of_product extends AppCompatActivity
                             if(response.isSuccessful()){
                                 Otp otp = response.body();
                                 if(otp.getStatus().equals("duplicate")){
-                                    Toast.makeText(getApplicationContext(),"این سفارش قبلا به سبد خرید افزوده شده!",Toast.LENGTH_SHORT).show();
-                                }else if(otp.getStatus().equals("added")){
-                                    Toast.makeText(getApplicationContext(),"به سبد خرید اضافه شد",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),otp.getStatus()+"این سفارش قبلا به سبد خرید افزوده شده!",Toast.LENGTH_SHORT).show();
+                                }
+                                if(otp.getStatus().equals("added")){
+                                    Toast.makeText(getApplicationContext(),otp.getStatus()+"به سبد خرید اضافه شد",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -208,6 +209,19 @@ public class Detail_of_product extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             Intent i = new Intent(Detail_of_product.this, UserActivity.class);
             startActivity(i);
+        } else if (id == R.id.nav_basket) {
+
+            UserData userData = new UserData(this);
+            if(!userData.GetId().equals("-")){
+                Intent i = new Intent(Detail_of_product.this, BasketActivity.class);
+                i.putExtra("USER",userData.GetId());
+                startActivity(i);
+            }else {
+                Toast.makeText(getApplicationContext(),"لطفا ابتدا ثبت نام کنید یا وارد شوید!",Toast.LENGTH_SHORT).show();
+            }
+
+
+
         }
 
 

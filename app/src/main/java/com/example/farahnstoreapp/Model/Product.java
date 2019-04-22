@@ -16,6 +16,10 @@ public class Product {
     private String cat;
     @SerializedName("description")
     private String description;
+    @SerializedName("qty")
+    private String qty;
+    @SerializedName("idbasket")
+    private String idbasket;
 
     public String getId() {
         return id;
@@ -63,5 +67,21 @@ public class Product {
 
     public void setCat(String cat) {
         this.cat = cat;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    public String getIdbasket() {
+        return idbasket;
+    }
+
+    public void setIdbasket(String idbasket) {
+        this.idbasket = idbasket;
     }
 }

@@ -5,26 +5,23 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_category"
-            android:icon="@mipmap/ico_category"
-            android:title="دسته بندی" />
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Import" />
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@mipmap/ico_user"
-            android:title="کاربر" />
-
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Gallery" />
         <item
-            android:id="@+id/nav_basket"
-            android:icon="@mipmap/ico_baskett"
-            android:title="سبد خرید" />
-<!--
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Slideshow" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
--->
     </group>
-<!--
+
     <item android:title="Communicate">
         <menu>
             <item
@@ -36,7 +33,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
         </menu>
-
     </item>
--->
+
 </menu>
